@@ -15,13 +15,13 @@ const BookList = () => {
   }, []);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-6 min-h-screen">
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-zeyada text-purple-800 mb-4">My Reading List</h1>
+        <h1 className="text-4xl font-zeyada text-white mb-4">My Reading List</h1>
       </div>
       
       <section className="mb-8">
-        <h2 className="text-3xl font-zeyada text-purple-600 mb-4">Books Read By Me</h2>
+        <h2 className="text-3xl font-zeyada text-white mb-4">Books Read By Me</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {booksRead.map((book) => (
             <div key={book.title} className="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center">
@@ -39,7 +39,7 @@ const BookList = () => {
       </section>
 
       <section>
-        <h2 className="text-3xl font-zeyada text-purple-600 mb-4">Books I Want to Read</h2>
+        <h2 className="text-3xl font-zeyada text-white mb-4">Books I Want to Read</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {booksToRead.map((book) => (
             <div key={book.title} className="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center">
