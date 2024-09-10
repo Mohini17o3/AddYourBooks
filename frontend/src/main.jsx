@@ -9,6 +9,8 @@ import './index.css'
 import BookList from './components/BookList.jsx'
 import AddBook from './components/AddBook.jsx'
 import Landing from './components/Landing.jsx'
+import Analytics from './components/Analytics.jsx'
+import Book from './components/Book.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,11 +21,12 @@ const router = createBrowserRouter([
         element : <Landing />
       }
    ,
-      // {
-      //   path:"/analytics" , 
-      //   element : <Analytics />
+
+      {
+        path:"/analytics" , 
+        element : <Analytics />
       
-      // }, 
+      }, 
       {
         path :"/books" , 
         element: <BookList status="read" />

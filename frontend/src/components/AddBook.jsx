@@ -6,7 +6,10 @@ const AddBook = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [status, setStatus] = useState('read');
-    const [coverUrl, setCoverUrl] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState('');
     const navigate = useNavigate();
 
     const fetchCoverUrl = async (title, author) => {
@@ -31,11 +34,19 @@ const AddBook = () => {
             author,
             status,
             cover_url,
-            date_added: new Date().toISOString()
+            start_date: startDate,
+            end_date: endDate,
+            rating,
+            review,
+           date_added: new Date().toISOString()
         }).then(response => {
             setTitle('');
             setAuthor('');
             setStatus('read');
+            setStartDate('');
+            setEndDate('');
+            setRating(0);
+            setReview('');
             navigate('/books');
         }).catch(error => {
             console.error('Error adding book:', error);
@@ -43,40 +54,98 @@ const AddBook = () => {
     };
 
     return (
-        <div className="flex items-center flex-col">
-            <h1>Add a Book</h1>
-
-            <div className="flex items-center mb-4 mt-4">
+        <div className="bg-brown-300 p-8 rounded-lg shadow-lg m-6 max-w-lg mx-auto">
+           <div className="mb-6 flex justify-center">
+             <img src="Books.webp" alt="Books" className="w-32 h-32 object-cover rounded-full shadow-md" />
+            </div>
+             <h1 className="text-4xl font-zeyada text-white text-center mb-6">Add a New Book </h1>
+            <p className="text-2xl font-zeyada text-white text-center mb-6">Yo! Mind the spellings.</p>
+            <div className="mb-4">
+                <label className="block text-white text-xl font-bold mb-2">Title:</label>
                 <input
-                    className="text-white p-4 rounded-lg"
+                    className="w-full p-3 rounded-lg bg-gray-600 text-white"
                     type="text"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Title"
+                    placeholder="Enter book title"
                 />
             </div>
-
-            <div className="flex items-center mb-6">
+            <div className="mb-4">
+                <label className="block text-white text-xl font-bold mb-2">Author:</label>
                 <input
-                    className="text-white p-4 rounded-lg"
+                    className="w-full p-3 rounded-lg bg-gray-600 text-white"
                     type="text"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
-                    placeholder="Author"
+                    placeholder="Enter author's name"
                 />
             </div>
 
-            <select
-                className="text-white mb-6 p-2 rounded-lg"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
+            <div className="mb-6">
+                <label className="block text-white text-xl font-bold mb-2">Status:</label>
+                <select
+                    className="w-full p-3 rounded-lg bg-gray-600 text-white"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                >
+                    <option value="read">Read</option>
+                    <option value="to_read">To Read</option>
+                </select>
+            </div>
+            
+            <p className="font-zeyada text-white text-xl mb-6"> 🫡 Continue below if you've read the book</p>
+            <div className="mb-4">
+                <label className="block text-white text-xl font-bold mb-2"> Remember the Start Date? </label>
+                <input
+                    className="w-full p-3 rounded-lg bg-gray-600 text-white"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    placeholder="Remember when you started reading ?"
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-white text-xl font-bold mb-2">And End Date ?</label>
+                <input
+                    className="w-full p-3 rounded-lg bg-gray-600 text-white"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    placeholder="And when did you complete it ? "
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-white text-xl font-bold mb-2">What do you rate it (0-5):</label>
+                <input
+                    className="w-full p-3 rounded-lg bg-gray-600 text-white"
+                    type="number"
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                    
+                />
+            </div>
+            <div className="mb-4">
+                <label className="block text-white text-xl font-bold mb-2"> Thoughts about the book :</label>
+                <textarea
+                    className="w-full p-3 rounded-lg bg-gray-600 text-white"
+                    type="number"
+                    value={review}
+                    onChange={(e) => setReview(e.target.value)}
+                    placeholder=" 💭"
+                />
+            </div>
+        
+            <button
+                onClick={handleSubmit}
+                className="w-full bg-purple-900 hover:bg-purple-800 text-white p-3 rounded-lg font-semibold"
             >
-                <option value="read">Read</option>
-                <option value="to_read">To Read</option>
-            </select>
-            <button onClick={handleSubmit}>Add Book</button>
+                Add Book
+            </button>
+
+
         </div>
     );
 };
+
 
 export default AddBook;
