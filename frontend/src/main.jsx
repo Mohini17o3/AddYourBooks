@@ -10,17 +10,19 @@ import BookList from './components/BookList.jsx'
 import AddBook from './components/AddBook.jsx'
 import Landing from './components/Landing.jsx'
 import Analytics from './components/Analytics.jsx'
-import Book from './components/Book.jsx'
+
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children : [ 
+
       {
         path:"/" , 
         element : <Landing />
-      }
-   ,
+      
+      }, 
 
       {
         path:"/analytics" , 
@@ -40,9 +42,7 @@ const router = createBrowserRouter([
 
     
   },
-  
-
-
+ 
 
 ]);
 
@@ -51,5 +51,5 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
-    </StrictMode>,
+    </StrictMode>
 )
