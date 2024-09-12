@@ -7,7 +7,7 @@ const BookList = () => {
   const [booksToRead, setBooksToRead] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/books')
+    axios.get('https://addyourbooks.onrender.com/api/books')
       .then(response => {
         setBooksRead(response.data.read || []);
         setBooksToRead(response.data.to_read || []);
@@ -16,7 +16,7 @@ const BookList = () => {
   }, []);
 
   function handleClick(title , author , status) {
-    axios.delete('http://localhost:5000/api/remove-books' , {data : {title , author}})
+    axios.delete('https://addyourbooks.onrender.com/api/remove-books' , {data : {title , author}})
     .then(response => {
       if(status === 'read'){
             setBooksRead(booksRead.filter(book => !(book.title === title  && book.author === author ) ));

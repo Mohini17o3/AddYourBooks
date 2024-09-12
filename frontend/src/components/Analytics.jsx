@@ -12,7 +12,7 @@ const Analytics = () => {
     const [selectedYear, setSelectedYear] = useState(null);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/reading-stats')
+        axios.get('https://addyourbooks.onrender.com/api/reading-stats')
             .then(response => {
                 console.log(response.data);
                 setData(response.data);
