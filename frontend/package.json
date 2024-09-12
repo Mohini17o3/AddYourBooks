@@ -2,7 +2,7 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://github.com/Mohini17o3/AddYourBooks",
+  "homepage": "https://Mohini17o3.github.io/AddYourBooks",
   "type": "module",
   "scripts": {
     "dev": "vite",
