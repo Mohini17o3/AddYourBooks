@@ -1,3 +1,4 @@
+import React from "react";
 import { pages , pageAtom } from "./pageStore";
 import { useCursor, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";

@@ -1,7 +1,7 @@
 import React from "react";
 import {Environment , Float , OrbitControls} from  "@react-three/drei" ;
 import {Book} from "./Book";
-import { Temp } from "./temp";
+// import { Temp } from "./temp";
 export const Experience = () => {
     return (
    <>
