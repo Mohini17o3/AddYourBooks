@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'; 
+import { Link } from 'react-router-dom';
+
 const BookList = () => {
   const [booksRead, setBooksRead] = useState([]);
   const [booksToRead, setBooksToRead] = useState([]);
@@ -51,8 +53,10 @@ const BookList = () => {
           ))}
 
         </div>
-        <button className='mt-6' onClick={()=>window.location.assign('/addBooks')}> Add More</button>
+        <Link to="/addBooks">
 
+        <button className='mt-6 text-black' > Add More</button>
+       </Link>
       </section>
 
       <section>
@@ -71,7 +75,10 @@ const BookList = () => {
             </div>
           ))}
         </div>
-    <button className='mt-6' onClick={()=>window.location.assign('/addBooks')}> Add More</button>     
+        
+        <Link to="/addBooks">
+    <button className='mt-6 text-black' > Add More</button>  
+    </Link>   
       </section>
     </div>
   );
