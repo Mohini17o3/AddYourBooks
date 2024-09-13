@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { Canvas } from "@react-three/fiber";
 import { Experience } from './Experience';
-import { Loader } from '@react-three/drei';
 import { pages, pageAtom } from './pageStore';  
 import { useAtom } from "jotai";
 
@@ -13,14 +12,13 @@ function Landing() {
     
     return (
         <>
-<Loader />  
 
       {/* for buttons of pages */}
      <main>
         <div className="flex flex-row mt-4 items-center justify-center text-black">
             <div className="text-center">
                 <h1 className="text-6xl font-bold mb-8 mt-4 text-gray-400">Welcome to Your Reading List</h1>
-                <p className="text-4xl text-white mb-8 font-zeyada font-semibold">
+                <p className="text-4xl text-white mb-2 font-zeyada font-semibold">
                     Organize your books, track your reading progress, and dive into your next adventure.
                 </p>
  
