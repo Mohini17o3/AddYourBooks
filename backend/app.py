@@ -17,6 +17,7 @@ def add_book():
       'title' : data['title'],
       'author' : data['author'],
       'status' : data['status'],
+      'cover_url':data['cover_url'],
       'start_date' : data.get('start_date' , None),
       'end_date' : data.get('end_date', None),
       'rating' : data.get('rating' , None),
@@ -24,15 +25,11 @@ def add_book():
       'date_added' : data.get('date_added' , None),
   }
   if data['status'] == 'read':
-        books_read.append(data)
+        books_read.append(book)
   else:
-        books_to_read.append(data)
+        books_to_read.append(book)
 
   return jsonify({'message': 'Book added successfully'}), 200
-
-
-
-
 
 
 @app.route('/api/remove-books' , methods = ['DELETE'])
@@ -60,6 +57,7 @@ def remove_book():
 @app.route('/api/reading-stats' , methods=['GET'])
 def reading_stats():
     stats = get_reading_stats(books_read)
+    
     return jsonify(stats)
 
 @app.route('/api/books' , methods=['GET'])

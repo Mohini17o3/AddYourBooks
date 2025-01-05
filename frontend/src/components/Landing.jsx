@@ -17,7 +17,7 @@ function Landing() {
      <main>
         <div className="flex flex-row mt-4 items-center justify-center text-black">
             <div className="text-center">
-                <h1 className="text-4xl md:text-6xl font-bold mb-8 mt-4 text-gray-400">Welcome to Your Reading List</h1>
+                <h1 className="text-4xl md:text-7xl font-bold mb-8 mt-4 text-violet-900">Welcome to Your Reading List</h1>
                 <p className="text-2xl md:text-4xl mb-2 font-zeyada font-semibold text-white">
                     Organize your books, track your reading progress, and dive into your next adventure.
                 </p>
@@ -67,7 +67,7 @@ function Landing() {
 
             <div className="flex items-center justify-center space-x-4 mb-8">
             <p className="font-zeyada text-white md:text-4xl p-4"> What are you waiting for ?</p> 
-                    <Link to="/addBooks">
+                    <Link to="/searchBar">
                     <button 
                     className="text-white font-semibold md:py-2 md:px-4  rounded-lg"
                     >

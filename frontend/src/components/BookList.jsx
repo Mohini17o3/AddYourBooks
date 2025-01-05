@@ -7,8 +7,12 @@ import { Link } from 'react-router-dom';
 const BookList = () => {
   const [booksRead, setBooksRead] = useState([]);
   const [booksToRead, setBooksToRead] = useState([]);
+  const [isModal , setIsModal] = useState(false);
+  const [isBookSelected , setIsSelected] = useState(null);
 
   useEffect(() => {
+    // https://addyourbooks.onrender.com/api/books
+   
     axios.get('https://addyourbooks.onrender.com/api/books')
       .then(response => {
         setBooksRead(response.data.read || []);
@@ -18,7 +22,8 @@ const BookList = () => {
   }, []);
 
   function handleClick(title , author , status) {
-    axios.delete('https://addyourbooks.onrender.com/api/remove-books' , {data : {title , author}})
+    //https://addyourbooks.onrender.com/api/remove-books
+    axios.delete(' //https://addyourbooks.onrender.com/api/remove-books' , {data : {title , author}})
     .then(response => {
       if(status === 'read'){
             setBooksRead(booksRead.filter(book => !(book.title === title  && book.author === author ) ));
@@ -29,6 +34,14 @@ const BookList = () => {
     .catch(error => console.error('Error removing book' , error));
   }
 
+  function handleMyReview(book) {
+     setIsSelected(book);
+     setIsModal(!isModal);
+  }
+
+  function closeModal(){
+    setIsModal(false);
+  }
 
   return (
     <div className="p-6 min-h-screen">
@@ -47,7 +60,9 @@ const BookList = () => {
              </div>
               <div className="text-center">
                 <h3 className="text-xl font-semibold text-gray-800">{book.title}</h3>
-                <p className="text-gray-600">by {book.author}</p>
+                <p className="text-gray-600 mb-4">by {book.author}</p>
+                <p className='text-violet-800 mb-4'>My rating  : {book.rating}</p>
+                <p className='text-violet-600 cursor-pointer font-bold' onClick={() =>handleMyReview(book)}>My learnings from the book </p>
               </div>
             </div>
           ))}
@@ -55,7 +70,7 @@ const BookList = () => {
         </div>
         <Link to="/addBooks">
 
-        <button className='mt-6 text-black' > Add More</button>
+        <button className='mt-6 text-black'> Add More</button>
        </Link>
       </section>
 
@@ -76,10 +91,27 @@ const BookList = () => {
           ))}
         </div>
         
+
         <Link to="/addBooks">
     <button className='mt-6 text-black' > Add More</button>  
     </Link>   
       </section>
+
+ {isModal && isBookSelected && (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+          <div className="bg-white p-6 rounded-lg max-w-4xl w-full lg:w-1/2 md:w-1/2">
+            <div className="text-right">
+              <FontAwesomeIcon className="cursor-pointer" icon={faTimes} onClick={closeModal} />
+            </div>
+            <h2 className="text-2xl font-bold text-center mb-4">{isBookSelected.title}</h2>
+            <div className="max-h-96 overflow-auto">
+        <p className="text-center text-violet-800 font-semibold bg-violet-100 p-4 rounded leading-relaxed whitespace-pre-wrap break-words">
+          {isBookSelected.review}
+        </p>
+      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

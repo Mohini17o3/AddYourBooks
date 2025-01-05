@@ -18,7 +18,7 @@
 
   height: 100vh;
   width: 100vw;
-  background: radial-gradient(#483d58  , #10051e 80%);
+  background: radial-gradient(circle, #e9d9e8, #cf98c1, #ae86c9 70%, #8a6da5);
 
 }
 
@@ -34,8 +34,8 @@ a:hover {
 body {
   margin: 0;
   padding : 0 ;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 h1 {

@@ -11,6 +11,7 @@ import BookList from './components/BookList.jsx'
 import AddBook from './components/AddBook.jsx'
 import Landing from './components/Landing.jsx'
 import Analytics from './components/Analytics.jsx'
+import SearchBar from './components/SearchBar.jsx';
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/addBooks",
         element : <AddBook />
+      },  
+      {
+        path : "/searchBar",
+        element : <SearchBar />
       }
     ]
 

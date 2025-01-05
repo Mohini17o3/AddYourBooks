@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const AddBook = () => {
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
+    const location = useLocation();
+    const bookState = location.state ;
+
+
+    const [title, setTitle] = useState(bookState?.title || '');
+    const [author, setAuthor] = useState(bookState?.author || '');
     const [status, setStatus] = useState('read');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
     const navigate = useNavigate();
+
 
     const fetchCoverUrl = async (title, author) => {
         try {
@@ -28,8 +34,8 @@ const AddBook = () => {
 
     const handleSubmit = async () => {
         const cover_url = await fetchCoverUrl(title, author);
-        
-        axios.post('https://addyourbooks.onrender.com/api/add-book', {
+        // https://addyourbooks.onrender.com/api/add-book
+        axios.post('// https://addyourbooks.onrender.com/api/add-book', {
             title,
             author,
             status,
