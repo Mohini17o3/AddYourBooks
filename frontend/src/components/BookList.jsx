@@ -23,7 +23,7 @@ const BookList = () => {
 
   function handleClick(title , author , status) {
     //https://addyourbooks.onrender.com/api/remove-books
-    axios.delete(' //https://addyourbooks.onrender.com/api/remove-books' , {data : {title , author}})
+    axios.delete('https://addyourbooks.onrender.com/api/remove-books' , {data : {title , author}})
     .then(response => {
       if(status === 'read'){
             setBooksRead(booksRead.filter(book => !(book.title === title  && book.author === author ) ));

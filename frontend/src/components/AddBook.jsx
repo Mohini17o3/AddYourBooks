@@ -35,7 +35,7 @@ const AddBook = () => {
     const handleSubmit = async () => {
         const cover_url = await fetchCoverUrl(title, author);
         // https://addyourbooks.onrender.com/api/add-book
-        axios.post('// https://addyourbooks.onrender.com/api/add-book', {
+        axios.post('https://addyourbooks.onrender.com/api/add-book', {
             title,
             author,
             status,
