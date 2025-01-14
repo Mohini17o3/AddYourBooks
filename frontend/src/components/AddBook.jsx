@@ -6,6 +6,8 @@ import { useLocation } from 'react-router-dom';
 const AddBook = () => {
     const location = useLocation();
     const bookState = location.state ;
+    const [loading, setLoading] = useState(false);
+    
 
 
     const [title, setTitle] = useState(bookState?.title || '');
@@ -33,6 +35,7 @@ const AddBook = () => {
     };
 
     const handleSubmit = async () => {
+        setLoading(true);
         const cover_url = await fetchCoverUrl(title, author);
         // https://addyourbooks.onrender.com/api/add-book
         axios.post('https://addyourbooks.onrender.com/api/add-book', {
@@ -53,14 +56,17 @@ const AddBook = () => {
             setEndDate('');
             setRating(0);
             setReview('');
+            setLoading(false);
             navigate('/books');
         }).catch(error => {
             console.error('Error adding book:', error);
+            setLoading(false); 
         });
     };
-
+  
     return (
-        <div className="bg-brown-300 p-8 rounded-lg shadow-lg m-6 max-w-lg mx-auto">
+        <div className="bg-brown-300 p-8 rounded-lg shadow-lg m-6 max-w-lg mx-auto relative">
+     { loading && <div className="flex items-center justify-center h-screen w-screen fixed top-0 left-0 bg-gray-500 bg-opacity-50 z-50"><p className="text-white font-bold text-3xl font-zeyada"> Setting up your bookshelf ...</p></div>}
            <div className="mb-6 flex justify-center">
              <img src="Books.webp" alt="Books" className="w-32 h-32 object-cover rounded-full shadow-md" />
             </div>

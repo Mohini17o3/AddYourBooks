@@ -48,7 +48,7 @@ const Analytics = () => {
     };
 
     // Display single values separately if needed
-    if (loading) return <p className='text-white font-zeyada'>Loading...</p>;
+    if (loading) return <p className='text-white flex items-center justify-center font-bold text-6xl font-zeyada'>Loading...</p>;
     if (error) return <p className='text-white font-zeyada'>{error}</p>;
 
     return (
