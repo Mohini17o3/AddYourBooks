@@ -11,13 +11,17 @@ const Navbar = () => {
         <Link to="/searchBar" className="text-violet-900 md:text-lg ">Search Books</Link>
         <Link to="/addBooks" className="ml-4 text-violet-900 md:text-lg">Add Books</Link>
         <Link to="/books" className="text-violet-900 md:text-lg">Book List</Link>
+        <Link to="/topBooks" className="ml-4 text-violet-900 md:text-lg">Top Books</Link>
         <Link to="/analytics" className="ml-4 text-violet-900 md:text-lg">Analytics</Link>
  
         </div>
         <div>
-          <button>
+        {/* <Link to="/signUp">
+          <button className='hover:bg-white hover:text-violet-500 text-white'>
             Sign Up
           </button>
+          </Link>  */}
+   
         </div>
     </div>
   </div>

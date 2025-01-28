@@ -10,8 +10,6 @@ const PAGE_SEGMENTS = 30;
 const SEGMENT_WIDTH = PAGE_WIDTH / PAGE_SEGMENTS;
 
 
-
-
 const pageGeometry =  new BoxGeometry(
     PAGE_WIDTH , 
     PAGE_HEIGHT ,

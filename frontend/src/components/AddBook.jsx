@@ -7,9 +7,6 @@ const AddBook = () => {
     const location = useLocation();
     const bookState = location.state ;
     const [loading, setLoading] = useState(false);
-    
-
-
     const [title, setTitle] = useState(bookState?.title || '');
     const [author, setAuthor] = useState(bookState?.author || '');
     const [status, setStatus] = useState('read');
@@ -22,8 +19,9 @@ const AddBook = () => {
 
     const fetchCoverUrl = async (title, author) => {
         try {
+            const key = process.env.books_api ;
             const query = `${title}+inauthor:${author}`.replace(/ /g, '+');
-            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+            const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${key}`);
             const book = response.data.items ? response.data.items[0] : null;
             if (book && book.volumeInfo && book.volumeInfo.imageLinks) {
                 return book.volumeInfo.imageLinks.thumbnail;
