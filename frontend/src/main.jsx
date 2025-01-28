@@ -12,7 +12,7 @@ import AddBook from './components/AddBook.jsx'
 import Landing from './components/Landing.jsx'
 import Analytics from './components/Analytics.jsx'
 import SearchBar from './components/SearchBar.jsx';
-import SignUp from './components/signUp.jsx';
+// import SignUp from './components/signUp.jsx';
 import TopBooks from './components/topBooks.jsx';
 
 const router = createBrowserRouter([
