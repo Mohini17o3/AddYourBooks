@@ -46,9 +46,9 @@ const SearchBar = ()=> {
 
         <img className="opacity-60 z-10 absolute top-0 left-0 sm:max-w-screen" src="book_cover_collage2.jpeg"></img>
 
-        <div className="flex items-center justify-center h-screen w-screen z-20 relative">
-        <div className="bg-purple-300 p-8 rounded-lg shadow-md flex flex-col items-center md:w-3/5 space-y-4 opacity-90 relative">
-              <label className="text-2xl text-white font-bold">Search : </label>
+        <div className="flex items-center justify-center h-screen w-screen z-20 relative ">
+        <div className="p-8 bg-violet-100 rounded-lg shadow-md flex flex-col items-center md:w-3/5 space-y-4 opacity-90 relative  border-white border-6">
+              <label className="text-2xl text-violet-900 font-bold">Search : </label>
           <div className="relative w-full ">
          <input name="search" id="search" className="border border-gray-300 rounded h-12 w-full px-4"
  placeholder="Type to search..." onChange={handleChange} value={searchQuery} ></input>

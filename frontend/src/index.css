@@ -18,8 +18,7 @@
 
   height: 100vh;
   width: 100vw;
-  background: radial-gradient(circle, #dac7c7, #cfc6c6, #ccb3ca 30%, #cf98c1 60%, #ae86c9 90%, #8a6da5);
-
+  background: radial-gradient(circle, #dac7c7, #cfc6c6, #cbbaca 30%, #c7a3be 60%, #baa3c9 90%, #9f91ac);
 }
 
 
@@ -52,7 +51,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #7d7ac1;
+  background-color: #be8fbb;
   cursor: pointer;
   transition: border-color 0.25s;
 }
