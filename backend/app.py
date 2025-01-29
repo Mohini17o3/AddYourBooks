@@ -7,7 +7,6 @@ import pickle
 import json
 
 
-popular_df = pickle.load(open('model/popular_df', 'rb'))
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -72,9 +71,12 @@ def get_books():
         'to_read': books_to_read
     })
 
+
+
 @app.route('/api/topBooks' , methods = ['GET'])
 def get_top_books():
       try :
+        popular_df = pickle.load(open('model/popular_df', 'rb'))
         data =  popular_df.to_dict(orient = 'records')
         for entry in data :
             entry['Book-Title'] = str(entry['Book-Title'])

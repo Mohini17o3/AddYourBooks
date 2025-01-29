@@ -13,7 +13,7 @@ const AnalyticsForBooks = () => {
 
     useEffect(() => {
         console.log("Fetching analytics data...");
-        axios.get('https://addyourbooks.onrender.com/reading-stats')
+        axios.get('https://addyourbooks.onrender.com/api/reading-stats')
             .then(response => {
                 console.log(response.data);            
                 setData(response.data);
