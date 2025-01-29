@@ -57,23 +57,23 @@ const TopBooks = () => {
   }
    return (
     <>
-     <h1 className="lg:text-6xl font-bold font-zeyada flex justify-center items-center mt-8"> Some Popular Books</h1>  
+     <h1 className="lg:text-6xl font-bold font-zeyada flex justify-center items-center mt-8 text-white"> Some Popular Books</h1>  
    <div className="p-14 sm:p-2 flex items-center justify-center flex-col lg:m-20">
    <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-20 lg:p-8">
      {books.map((book ,index )=>(
       <div key={index} className="shadow-lg shadow-gray-200 p-8 rounded-md grid md:grid-cols-2 gap-2 font-semibold cursor-pointer border border-gray-200 border-2 justify-center items-center">
       
        <img 
-       className="rounded-md border border-8 border-black lg:text-2xl w-48" 
+       className="rounded-md border border-8 border-white lg:text-2xl w-48" 
        src={book['Image-URL-M']} 
        alt={book['Book-Title']}>
        </img>
 {/* ============book details ================ */}
-        <div className=" flex flex-col md:justify-between md:text-xl">{book['Book-Title']}
-               <div className="md:h-36 mt-8 mb-6">  
-               <p className="text-gray-600">Author : {book['Book-Author']}</p>
-               <p className="text-gray-600 ">Votes : {book['num_rating']}</p>
-               <p className="text-gray-600 ">Rating : {book['avg_rating']}</p>
+        <div className=" flex flex-col md:justify-between text-white md:text-xl">{book['Book-Title']}
+               <div className="md:h-36 mt-8 mb-6">   
+               <p className="text-gray-400">Author : {book['Book-Author']}</p>
+               <p className="text-gray-400 ">Votes : {book['num_rating']}</p>
+               <p className="text-gray-400 ">Rating : {book['avg_rating']}</p>
                </div>
                <button
                 className="text-white hover:bg-white hover:text-violet-600 transition mb-4 border border-white border-4 "

@@ -11,7 +11,6 @@ const BookList = () => {
   const [isBookSelected , setIsSelected] = useState(null);
 
   useEffect(() => {
-    // https://addyourbooks.onrender.com/api/books
    
     axios.get('https://addyourbooks.onrender.com/api/books')
       .then(response => {
@@ -22,7 +21,6 @@ const BookList = () => {
   }, []);
 
   function handleClick(title , author , status) {
-    //https://addyourbooks.onrender.com/api/remove-books
     axios.delete('https://addyourbooks.onrender.com/api/remove-books' , {data : {title , author}})
     .then(response => {
       if(status === 'read'){

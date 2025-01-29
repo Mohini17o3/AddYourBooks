@@ -5,16 +5,17 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
-const Analytics = () => {
+const AnalyticsForBooks = () => {
     const [data, setData] = useState({ years: [], months: [], booksRead: [], average_rating: [], average_reading_speed: [] });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedYear, setSelectedYear] = useState(null);
 
     useEffect(() => {
-        axios.get('https://addyourbooks.onrender.com/api/reading-stats')
+        console.log("Fetching analytics data...");
+        axios.get('https://addyourbooks.onrender.com/reading-stats')
             .then(response => {
-                console.log(response.data);
+                console.log(response.data);            
                 setData(response.data);
                 setSelectedYear(response.data.years[0]); // Default to the first year
                 setLoading(false);
@@ -85,4 +86,4 @@ const Analytics = () => {
     );
 };
 
-export default Analytics;
+export default AnalyticsForBooks;

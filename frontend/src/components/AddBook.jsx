@@ -19,11 +19,12 @@ const AddBook = () => {
 
     const fetchCoverUrl = async (title, author) => {
         try {
-            const key = process.env.books_api ;
+            const key = import.meta.env.VITE_books_api ;
             const query = `${title}+inauthor:${author}`.replace(/ /g, '+');
             const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${key}`);
             const book = response.data.items ? response.data.items[0] : null;
             if (book && book.volumeInfo && book.volumeInfo.imageLinks) {
+                console.log(book.volumeInfo.imageLinks.thumbnail);
                 return book.volumeInfo.imageLinks.thumbnail;
             }
         } catch (error) {
@@ -63,7 +64,7 @@ const AddBook = () => {
     };
   
     return (
-        <div className="bg-brown-300 p-8 rounded-lg shadow-lg m-6 max-w-lg mx-auto relative">
+        <div className="bg-brown-300 p-8 rounded-lg shadow-lg m-6 max-w-lg mx-auto border border-white">
      { loading && <div className="flex items-center justify-center h-screen w-screen fixed top-0 left-0 bg-gray-500 bg-opacity-50 z-50"><p className="text-white font-bold text-3xl font-zeyada"> Setting up your bookshelf ...</p></div>}
            <div className="mb-6 flex justify-center">
              <img src="Books.webp" alt="Books" className="w-32 h-32 object-cover rounded-full shadow-md" />

@@ -17,7 +17,7 @@ function Landing() {
      <main>
         <div className="flex flex-row mt-4 items-center justify-center text-black">
             <div className="text-center">
-                <h1 className="text-4xl md:text-7xl font-bold mb-8 mt-4 text-violet-900">Your Online Bookshelf</h1>
+                <h1 className="text-8xl font-bold mb-8 mt-4 text-violet-100 font-zeyada">Your Online Bookshelf</h1>
                 <p className="text-2xl md:text-4xl mb-2 font-zeyada font-semibold text-white">
                     Organize your books, track your reading progress, and dive into your next adventure.
                 </p>

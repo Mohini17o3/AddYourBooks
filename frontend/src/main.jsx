@@ -14,6 +14,7 @@ import SearchBar from './components/SearchBar.jsx';
 // import SignUp from './components/signUp.jsx';
 import TopBooks from './components/topBooks.jsx';
 import { Analytics } from "@vercel/analytics/react"
+import AnalyticsForBooks from './components/Analytics.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
 
       {
         path:"/analytics" , 
-        element : <Analytics />
+        element : <AnalyticsForBooks />
       
       }, 
       {

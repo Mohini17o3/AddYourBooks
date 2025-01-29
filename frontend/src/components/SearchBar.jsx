@@ -42,10 +42,7 @@ const SearchBar = ()=> {
 
 
     return (
-        <div className="relative w-screen h-screen">
-
-        <img className="opacity-60 z-10 absolute top-0 left-0 sm:max-w-screen" src="book_cover_collage2.jpeg"></img>
-
+        <div className="w-screen h-screen bg-image overlay">
         <div className="flex items-center justify-center h-screen w-screen z-20 relative ">
         <div className="p-8 bg-violet-100 rounded-lg shadow-md flex flex-col items-center md:w-3/5 space-y-4 opacity-90 relative  border-white border-6">
               <label className="text-2xl text-violet-900 font-bold">Search : </label>
