@@ -10,10 +10,10 @@ import './index.css'
 import BookList from './components/BookList.jsx'
 import AddBook from './components/AddBook.jsx'
 import Landing from './components/Landing.jsx'
-import Analytics from './components/Analytics.jsx'
 import SearchBar from './components/SearchBar.jsx';
 // import SignUp from './components/signUp.jsx';
 import TopBooks from './components/topBooks.jsx';
+import { Analytics } from "@vercel/analytics/react"
 
 const router = createBrowserRouter([
   {
@@ -66,6 +66,7 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
   <StrictMode>
+  <Analytics />
     <RouterProvider router={router} />
     </StrictMode>
 )
