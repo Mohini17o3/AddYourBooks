@@ -69,7 +69,7 @@ button:focus-visible {
 }
 
 .bg-image{
-  background-image: url("book_cover_collage2.jpeg");
+  background-image: url("/book_cover_collage2.jpeg");
   background-size: cover;
   background-position: center;
   width: 100vw;
