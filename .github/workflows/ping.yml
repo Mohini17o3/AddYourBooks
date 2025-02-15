@@ -1,6 +1,8 @@
 name: Keeping the server awake 
 
-
+env:
+  BACKEND_URL: ${{ secrets.BACKEND_URL }}
+  
 on:
   schedule:
     - cron: "*/15 * * * *"
@@ -10,6 +12,6 @@ jobs:
       runs-on: ubuntu-latest
       steps: 
         - name: send request to server
-          run: curl -X GET "https://addyourbooks.onrender.com" || echo "Server unreachable" 
+          run: curl -X GET $BACKEND_URL || echo "Server unreachable" 
     
     
