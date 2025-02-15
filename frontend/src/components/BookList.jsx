@@ -9,10 +9,10 @@ const BookList = () => {
   const [booksToRead, setBooksToRead] = useState([]);
   const [isModal , setIsModal] = useState(false);
   const [isBookSelected , setIsSelected] = useState(null);
-
+  const url = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
    
-    axios.get('https://addyourbooks.onrender.com/api/books')
+    axios.get(`${url}/api/books`)
       .then(response => {
         setBooksRead(response.data.read || []);
         setBooksToRead(response.data.to_read || []);
@@ -21,7 +21,7 @@ const BookList = () => {
   }, []);
 
   function handleClick(title , author , status) {
-    axios.delete('https://addyourbooks.onrender.com/api/remove-books' , {data : {title , author}})
+    axios.delete(`${url}/api/remove-books` , {data : {title , author}})
     .then(response => {
       if(status === 'read'){
             setBooksRead(booksRead.filter(book => !(book.title === title  && book.author === author ) ));

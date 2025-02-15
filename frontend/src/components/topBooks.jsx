@@ -10,11 +10,10 @@ const TopBooks = () => {
   const [modalOpen , setModalOpen] = useState(false) ;
   const [bookDetail , showBookDetail] = useState("") ;
   const key = import.meta.env.VITE_books_api ;
- 
+  const url = import.meta.env.VITE_BACKEND_URL;
     useEffect(()=>{
-      // https://addyourbooks.onrender.com/
       //"http://localhost:5000/api/topBooks"
-         fetch("https://addyourbooks.onrender.com/api/topBooks")
+         fetch(`${url}/api/topBooks`)
           .then((response)=>{
              if(!response.ok){
               throw new Error("Network response error");
@@ -34,7 +33,7 @@ const TopBooks = () => {
     } , []) ; 
 
     if(loading){
-     return <div className="relative flex justify-center items-center text-white text-6xl font-bold"> Loading .. </div>
+     return <div className="relative flex justify-center items-center text-white text-6xl font-bold font-zeyada"> Loading .. </div>
     }
 
     async function handleClick(bookTitle) {

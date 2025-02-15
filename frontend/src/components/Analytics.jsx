@@ -10,10 +10,10 @@ const AnalyticsForBooks = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedYear, setSelectedYear] = useState(null);
-
+    const url =  import.meta.env.VITE_BACKEND_URL ;
     useEffect(() => {
         console.log("Fetching analytics data...");
-        axios.get('https://addyourbooks.onrender.com/api/reading-stats')
+        axios.get(`${url}/api/reading-stats`)
             .then(response => {
                 console.log(response.data);            
                 setData(response.data);
