@@ -15,7 +15,7 @@ const AddBook = () => {
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
     const navigate = useNavigate();
-
+    const url =  import.meta.env.VITE_BACKEND_URL ;
 
     const fetchCoverUrl = async (title, author) => {
         try {
@@ -36,8 +36,7 @@ const AddBook = () => {
     const handleSubmit = async () => {
         setLoading(true);
         const cover_url = await fetchCoverUrl(title, author);
-        // https://addyourbooks.onrender.com/api/add-book
-        axios.post('https://addyourbooks.onrender.com/api/add-book', {
+        axios.post(`${url}/api/add-book`, {
             title,
             author,
             status,
