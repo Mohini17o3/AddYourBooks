@@ -220,5 +220,5 @@ websockets==13.1
 Werkzeug==3.0.4
 wheel==0.43.0
 widgetsnbextension==4.0.10
-wrapt==1.16.0
+wrapt>=1.11.0,<1.15.0
 yarl==1.18.0
