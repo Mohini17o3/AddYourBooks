@@ -15,7 +15,9 @@ const AddBook = () => {
     const [rating, setRating] = useState(0);
     const [review, setReview] = useState('');
     const navigate = useNavigate();
-    const url =  import.meta.env.VITE_BACKEND_URL ;
+    const url =  import.meta.env.VITE_EXPRESS_BACKEND_URL ;
+    const token = localStorage.getItem("token");
+    
 
     const fetchCoverUrl = async (title, author) => {
         try {
@@ -35,10 +37,15 @@ const AddBook = () => {
 
     const handleSubmit = async () => {
         setLoading(true);
+        if(!token) {
+            alert("Please login/register");
+            navigate("/login");
+
+        }
         const cover_url = await fetchCoverUrl(title, author);
         axios.post(`${url}/api/add-book`, {
             title,
-            author,
+            author ,
             status,
             cover_url,
             start_date: startDate,
@@ -46,7 +53,10 @@ const AddBook = () => {
             rating,
             review,
            date_added: new Date().toISOString()
-        }).then(response => {
+        } , { 
+            headers :
+            {Authorization : `Bearer ${token}`}
+             }).then(response => {
             setTitle('');
             setAuthor('');
             setStatus('read');

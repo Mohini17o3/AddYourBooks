@@ -11,10 +11,12 @@ import BookList from './components/BookList.jsx'
 import AddBook from './components/AddBook.jsx'
 import Landing from './components/Landing.jsx'
 import SearchBar from './components/SearchBar.jsx';
-// import SignUp from './components/signUp.jsx';
 import TopBooks from './components/topBooks.jsx';
 import { Analytics } from "@vercel/analytics/react"
 import AnalyticsForBooks from './components/Analytics.jsx';
+import Login from './components/Login.jsx';
+import SignUp from './components/SignUp.jsx';
+import Recommendations from './components/Recommendations.jsx';
 
 const router = createBrowserRouter([
   {
@@ -46,13 +48,21 @@ const router = createBrowserRouter([
         path : "/searchBar",
         element : <SearchBar />
       },
-      // {
-      //   path : "/signUp",
-      //   element : <SignUp />
-      // }, 
+      {
+        path : "/signUp",
+        element : <SignUp />
+      }, 
+      {
+        path : "/login",
+        element : <Login />
+      }, 
       {
         path : "/topBooks",
         element :<TopBooks/>
+      },
+      {
+        path : "/recommendations",
+        element :<Recommendations />
       }
 
     ]

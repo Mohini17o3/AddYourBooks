@@ -11,9 +11,10 @@ const AnalyticsForBooks = () => {
     const [error, setError] = useState(null);
     const [selectedYear, setSelectedYear] = useState(null);
     const url =  import.meta.env.VITE_BACKEND_URL ;
+    const token = localStorage.getItem("token");
     useEffect(() => {
         console.log("Fetching analytics data...");
-        axios.get(`${url}/api/reading-stats`)
+        axios.get(`${url}/api/reading-stats`  , {headers : {Authorization : `Bearer ${token}`}})
             .then(response => {
                 console.log(response.data);            
                 setData(response.data);

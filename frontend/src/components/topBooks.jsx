@@ -3,16 +3,16 @@ import axios from 'axios' ;
 import { useNavigate } from "react-router-dom";
 
 const TopBooks = () => {
-      const nav = useNavigate();
-
+  const nav = useNavigate();
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen , setModalOpen] = useState(false) ;
   const [bookDetail , showBookDetail] = useState("") ;
   const key = import.meta.env.VITE_books_api ;
   const url = import.meta.env.VITE_BACKEND_URL;
+
+  
     useEffect(()=>{
-      //"http://localhost:5000/api/topBooks"
          fetch(`${url}/api/topBooks`)
           .then((response)=>{
              if(!response.ok){
@@ -61,7 +61,7 @@ const TopBooks = () => {
    <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-20 lg:p-8">
      {books.map((book ,index )=>(
       <div key={index} className="shadow-lg shadow-gray-200 p-8 rounded-md grid md:grid-cols-2 gap-2 font-semibold cursor-pointer border border-gray-200 border-2 justify-center items-center">
-      
+     
        <img 
        className="rounded-md border border-8 border-white lg:text-2xl w-48" 
        src={book['Image-URL-M']} 
