@@ -16,7 +16,7 @@ Babel==2.14.0
 beautifulsoup4==4.12.3
 bleach==6.1.0
 blinker==1.8.2
-blis==1.0.1
+blis==1.2.0
 cachetools==5.5.0
 catalogue==2.0.10
 certifi==2024.8.30
@@ -58,7 +58,7 @@ google-pasta==0.2.0
 googleapis-common-protos==1.65.0
 gotrue==2.10.0
 grpcio==1.67.1
-grpcio-status==1.67.1
+grpcio-status==1.56.2
 gunicorn==23.0.0
 h11==0.14.0
 h2==4.1.0
@@ -119,7 +119,7 @@ networkx==3.4.2
 nltk==3.9.1
 notebook==7.3.2
 notebook_shim==0.2.4
-numpy==2.1.0
+numpy==2.2.3
 openai==0.28.0
 opencv-python==4.10.0.84
 opt-einsum==3.3.0
@@ -137,7 +137,7 @@ prometheus_client==0.20.0
 prompt-toolkit==3.0.43
 propcache==0.2.0
 proto-plus==1.25.0
-protobuf==5.28.3
+protobuf==4.25.3
 psutil==5.9.8
 pure-eval==0.2.2
 pyasn1==0.6.1
@@ -154,7 +154,8 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
 python-json-logger==2.0.7
 pytz==2024.1
-pywinpty==2.0.13
+pywin32==306
+pywinpty==2.0.15
 PyYAML==6.0.1
 pyzmq==25.1.2
 qtconsole==5.5.1
@@ -196,7 +197,7 @@ tensorflow-intel==2.16.1
 termcolor==2.4.0
 terminado==0.18.1
 textblob==0.18.0.post0
-thinc==8.3.2
+thinc==8.3.4
 threadpoolctl==3.5.0
 tinycss2==1.2.1
 torch==2.5.1
