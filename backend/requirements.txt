@@ -119,7 +119,7 @@ networkx==3.4.2
 nltk==3.9.1
 notebook==7.3.2
 notebook_shim==0.2.4
-numpy==2.2.3
+numpy==1.26.0
 openai==0.28.0
 opencv-python==4.10.0.84
 opt-einsum==3.3.0
