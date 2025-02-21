@@ -15,7 +15,7 @@ load_dotenv()  # Ensure this is at the top of your file
 url = os.getenv("EXPRESS_BACKEND_URL")
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": ["https://add-your-books.vercel.app"]}});
+CORS(app, resources={r"/api/*": {"origins": "*"}});
 
 
 books_read = []
