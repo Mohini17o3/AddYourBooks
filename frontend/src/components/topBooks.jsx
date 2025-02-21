@@ -16,6 +16,7 @@ const TopBooks = () => {
          fetch(`${url}/api/topBooks`)
           .then((response)=>{
              if(!response.ok){
+              console.log(response);
               throw new Error("Network response error");
              }
                 return response.json();

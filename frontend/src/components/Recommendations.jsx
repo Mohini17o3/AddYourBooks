@@ -10,7 +10,7 @@ const Recommendations = () => {
   const [modalContent , setModalContent] = useState("") ;
   const navigate = useNavigate();
   
-  const url = import.meta.env.VITE_EXPRESS_BACKEND_URL;
+  const url = import.meta.env.VITE_BACKEND_URL;
   const token = localStorage.getItem("token");
   const key = import.meta.env.VITE_books_api ;
 
