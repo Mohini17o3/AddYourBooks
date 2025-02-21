@@ -2,7 +2,6 @@ from flask import Flask , request , jsonify, Response
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
-import pandas as pd
 import numpy as np
 from data_processing import get_reading_stats
 import pickle
