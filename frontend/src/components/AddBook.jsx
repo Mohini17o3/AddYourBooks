@@ -48,8 +48,8 @@ const AddBook = () => {
             author ,
             status,
             cover_url,
-            start_date: startDate,
-            end_date: endDate,
+            start_date: startDate ? new Date(startDate).toISOString() : null,
+            end_date: startDate ? new Date(startDate).toISOString() : null,
             rating,
             review,
            date_added: new Date().toISOString()
