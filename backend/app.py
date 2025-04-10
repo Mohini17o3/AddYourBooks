@@ -71,7 +71,6 @@ def reading_stats():
 
 
 
-
 def get_stored_books(token):
     headers = {
         'Authorization': f'Bearer {token}'
