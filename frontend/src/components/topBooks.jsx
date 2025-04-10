@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios' ;
 import { useNavigate } from "react-router-dom";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons'; 
 const TopBooks = () => {
   const nav = useNavigate();
   const [books, setBooks] = useState([]);
@@ -91,23 +92,36 @@ const TopBooks = () => {
    
 {/*  ======== modal ===== */}
 {modalOpen &&  
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-8">
-  <div className="bg-[radial-gradient(circle,_#dac7c7,_#cfc6c6_30%,_#cbbaca_60%,_#c7a3be_90%,_#baa3c9_100%,_#9f91ac)] p-6 rounded-lg shadow-md shadow-gray-300 flex flex-col items-center size-fit p-4 border border-white border-2 ">
-    <h2 className="lg:text-2xl font-bold md:mb-4">{bookDetail.title}</h2>
-    <h2 className="font-bold mb-4 lg:text-lg"> By: {bookDetail.authors ? bookDetail.authors.join(", ") : "--"}</h2>
-    <h2 className="font-bold mb-4 lg:text-lg">About:</h2> 
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-6">
+    <div className=" relative bg-white p-4 sm:p-6 rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden ">
+
+    <div className="absolute top-4 right-4">
+  <FontAwesomeIcon  className="text-gray-600 hover:text-red-500 text-xl cursor-pointer"
+ icon={faTimes} onClick={() => setModalOpen(false)}
+ />
+  </div>
+
+
+      <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center">{bookDetail.title}</h2>
+       <h3 className="text-md sm:text-lg font-semibold mb-2 text-center">
+        By: {bookDetail.authors ? bookDetail.authors.join(", ") : "--"}
+      </h3>
     {bookDetail.subtitle ? 
-      <p className="font-bold font-zeyada mb-4 lg:text-lg">"{bookDetail.subtitle}"</p> : <p></p>
+      <p className="font-bold font-zeyada mb-4 lg:text-lg text-center">"{bookDetail.subtitle}"</p> : <p></p>
     }
-    <p className="text-gray-600 lg:mb-4 lg:text-xl text-sm"> {bookDetail.description?.length>500 ?bookDetail.description?.slice(0, 600): bookDetail.description}.....</p>
-    <button
-      className="text-white px-4 py-2 rounded-md hover:bg-white hover:text-violet-600 border border-white border-4 mt-4"
-      onClick={() => setModalOpen(false)}
-    >
-      Close
-    </button>
+    <h2 className="font-bold mb-4 lg:text-lg text-center">About:</h2> 
+
+    <div className="bg-violet-100 p-4 rounded-md overflow-y-auto max-h-[40vh] text-sm text-violet-800 font-semibold leading-relaxed">
+        {bookDetail.description?.length > 500
+          ? bookDetail.description.slice(0, 600)
+          : bookDetail.description}
+        .....
+      </div>
+  
      </div> 
-    </div> }  
+    </div>
+    
+     }  
     
    </div>
 
