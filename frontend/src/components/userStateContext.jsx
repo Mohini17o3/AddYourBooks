@@ -4,8 +4,19 @@ const userStateContext = createContext();  // gloal storage
 
 
 export const UserStateProvider = ({children}) =>{
+    
+    const [user , setUser] = useState(()=>{
+        const storedUser = localStorage.getItem("user") ;
+        return storedUser? JSON.parse(storedUser) : null ; 
+    });
 
-    const [user , setUser] = useState(Boolean(localStorage.getItem("token")));
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem("user", JSON.stringify(user));
+        } else {
+            localStorage.removeItem("user");
+        }
+    }, [user]);
 
     return (
         // every component can use user and setUser 
