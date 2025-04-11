@@ -5,11 +5,12 @@ function Leaderboard() {
   const { user } = useUser();
   const [leaderboard, setLeaderboard] = useState([]);
   const token = localStorage.getItem("token");
+  const url = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const res = await fetch("http://localhost:8000/leaderboard" , {
+        const res = await fetch(`${url}/leaderboard` , {
             headers: {
                 Authorization: `Bearer ${token}`,
               },
