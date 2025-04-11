@@ -107,7 +107,7 @@ const BookList = () => {
   return (
     <div className="p-6 min-h-screen">
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-zeyada text-white mb-4"> Welcome back to your Reading List {user.name}</h1>
+        <h1 className="text-4xl font-zeyada text-white mb-4"> Welcome back to your Reading List {user?.name || "Reader"}</h1>
 
 
       </div>

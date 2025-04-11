@@ -9,7 +9,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token"); 
-    setUser(false); 
+    setUser(null); 
   };
 
 
@@ -24,10 +24,10 @@ const Navbar = () => {
             <Link to="/addBooks" className="text-violet-200 md:text-lg hover:text-violet-600">Add</Link>
             <Link to="/books" className="text-violet-200 md:text-lg hover:text-violet-600">Book List</Link>
             <Link to="/analytics" className="text-violet-200 md:text-lg hover:text-violet-600">Analytics</Link>
-            {user ? (<Link to="/recommendations" className="text-violet-200 md:text-lg hover:text-violet-600">Recommendations</Link>
-            ) : ""}
+            {user && user.name && (<Link to="/recommendations" className="text-violet-200 md:text-lg hover:text-violet-600">Recommendations</Link>
+            ) }
 
-            {user ? (
+            {user && user.name ? (
               <Link onClick={handleLogout} className="text-white md:text-lg hover:text-red-600">
                 Log Out
               </Link>
