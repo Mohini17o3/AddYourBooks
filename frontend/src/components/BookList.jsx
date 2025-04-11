@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'; 
 import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from './userStateContext';
 
 const BookList = () => {
   const [booksRead, setBooksRead] = useState([]);
@@ -14,7 +15,7 @@ const BookList = () => {
   const [bookDescription , setBookDescription] = useState("")  ; 
   const[title , setTitle] = useState("") ; 
   const [loading , setLoading] = useState(false) ;
-
+  const {user} = useUser() ;
   const navigate = useNavigate();
 
   const url = import.meta.env.VITE_EXPRESS_BACKEND_URL;
@@ -106,7 +107,9 @@ const BookList = () => {
   return (
     <div className="p-6 min-h-screen">
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-zeyada text-white mb-4">My Reading List</h1>
+        <h1 className="text-4xl font-zeyada text-white mb-4"> Welcome back to your Reading List {user.name}</h1>
+
+
       </div>
       {loading ? (<div className="relative flex justify-center items-center text-white text-6xl font-bold font-zeyada"> Loading .. </div>): (       
  <>   
@@ -114,7 +117,7 @@ const BookList = () => {
         <h2 className="text-3xl font-zeyada text-white mb-4">Books Read By Me</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {booksRead.map((book) => (
-            <div key={book.title} className="shadow-lg shadow-gray-200 p-2 rounded-lg shadow-lg flex flex-col ">
+            <div key={book.title} className="shadow-lg shadow-gray-200 p-2 rounded-lg flex flex-col ">
             <div className='text-right' onClick={ () => handleClick(book.title,  book.author , 'read')}> <FontAwesomeIcon className='cursor-pointer bg-white p-2 rounded-md' icon={faTimes} /></div>
             <div className='flex justify-center'>
              <img src={book.cover_url} alt={book.title} className="w-32 h-48 object-cover mb-4 rounded-md" />

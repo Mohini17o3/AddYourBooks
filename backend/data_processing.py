@@ -12,8 +12,11 @@ def get_reading_stats(books_read):
 
     df = pd.DataFrame(books_read)
 
+    df['date_added'] = pd.to_datetime(df['date_added'], errors='coerce')
     df['end_date'] = pd.to_datetime(df['end_date'], errors='coerce')
     df['start_date'] = pd.to_datetime(df['start_date'], errors='coerce')
+    print(df[['title', 'start_date', 'end_date', 'rating']])
+
 
     df['rating'] = pd.to_numeric(df['rating'], errors='coerce')  
     df['rating'] = df['rating'].fillna(0)  
@@ -23,7 +26,7 @@ def get_reading_stats(books_read):
     df['days_to_finish'] = (pd.to_datetime(df['end_date']) - pd.to_datetime(df['start_date'])).dt.days
 
     # unique years from data
-    years = df['end_date'].dt.year.unique().tolist()
+    years = df['date_added'].dt.year.dropna().unique().tolist()
 
     results =  {
         'years' : [],
@@ -37,11 +40,11 @@ def get_reading_stats(books_read):
 
     for year in years :
         #filter for current year
-        df_year = df[df['end_date'].dt.year == year]
+        df_year = df[df['date_added'].dt.year == year].copy()
          
         #monthly stats
-        df_year['month'] = df_year['end_date'].dt.strftime('%B')
-        months = pd.date_range(start=f'1/1/{year}' , end = f'12/31/{year}' , freq = 'M').strftime('%B').tolist()
+        df_year['month'] = df_year['date_added'].dt.strftime('%B')
+        months = pd.date_range(start=f'1/1/{year}' , end = f'12/31/{year}' , freq = 'ME').strftime('%B').tolist()
         books_read_per_month = df_year.groupby('month').size().reindex(months ,fill_value=0).tolist()
 
         # yearly stats
