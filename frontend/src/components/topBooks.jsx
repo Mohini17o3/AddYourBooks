@@ -8,7 +8,7 @@ const TopBooks = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen , setModalOpen] = useState(false) ;
-  const [bookDetail , showBookDetail] = useState("") ;
+  const [bookDetail , showBookDetail] = useState(null) ;
   const key = import.meta.env.VITE_books_api ;
   const url = import.meta.env.VITE_BACKEND_URL;
 
@@ -92,7 +92,7 @@ const TopBooks = () => {
    
 {/*  ======== modal ===== */}
 {modalOpen &&  
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-6">
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-[999] p-6">
     <div className=" relative bg-white p-4 sm:p-6 rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden ">
 
     <div className="absolute top-4 right-4">
@@ -120,20 +120,30 @@ const TopBooks = () => {
 
       <div className='flex items-center justify-center'>       
         {bookDetail.saleInfo?.buyLink ? (
+  <div className="flex flex-row gap-4 mb-4">    
   <a
     href={bookDetail.saleInfo.buyLink}
     target="_blank"
     rel="noopener noreferrer"
-    className="bg-orange-500 text-white px-4 py-2 rounded mt-2 inline-block flex"
+    className="bg-violet-500 text-sm text-white px-4 py-2 rounded mt-2 inline-block flex h-fit hover:bg-violet-300"
   >
-    Buy on Google Books
+    Buy 
+    </a>
+    <a
+    href={bookDetail.volumeInfo.infoLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-400 underline px-4 py-2 text-sm"
+  >
+    View on Google Books
   </a>
+  </div>     
 ) : (
   <a
     href={bookDetail.volumeInfo.infoLink}
     target="_blank"
     rel="noopener noreferrer"
-    className="text-blue-400 underline"
+    className="text-blue-400 underline justify-center flex items-center"
   >
     View on Google Books
   </a>

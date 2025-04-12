@@ -12,7 +12,7 @@ const BookList = () => {
   const [isBookSelected , setIsSelected] = useState(null);
   const[knowModal , setKnowModal] = useState(false) ;
   const [loadingDesc , setLoadingDesc] = useState("")  ; 
-  const [bookDescription , setBookDescription] = useState("")  ; 
+  const [bookDescription , setBookDescription] = useState(null)  ; 
   const[title , setTitle] = useState("") ; 
   const [loading , setLoading] = useState(false) ;
   const {user} = useUser() ;
@@ -93,7 +93,7 @@ const BookList = () => {
      const res = await fetch(url) ;
      const data = await res.json() ; 
      console.log(data);
-     const desc =  await data?.items?.[0].volumeInfo?.description || " oopsie ! description not avaible for this book right now "; 
+     const desc =  await data?.items?.[0] || " oopsie ! description not avaible for this book right now "; 
       setBookDescription(desc) ;
 
      }catch(e) {
@@ -203,7 +203,7 @@ const BookList = () => {
         </div>
       )}
 
-    {knowModal && title && (
+    {knowModal && title && bookDescription && (
   <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
     <div className="bg-white p-6 rounded-lg max-w-4xl w-full lg:w-1/2 md:w-1/2">
       <div className="text-right">
@@ -215,9 +215,42 @@ const BookList = () => {
           <p className="text-center text-violet-500">Loading description...</p>
         ) : (
           <p className="text-center text-violet-800 font-semibold bg-violet-100 p-4 rounded leading-relaxed whitespace-pre-wrap break-words">
-            {bookDescription}
+            {bookDescription.volumeInfo.description}
           </p>
         )}
+
+        {bookDescription.saleInfo?.buyLink ? (
+ <div className='flex flex-row gap-4 mb-4 items-center justify-center'>          
+  <a
+    href={bookDescription.saleInfo.buyLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-violet-500 text-sm text-white px-4 py-2 rounded mt-2 inline-block flex h-fit hover:bg-violet-300"
+  >
+    Buy 
+  </a>
+  <a
+    href={bookDescription.volumeInfo.infoLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-400 underline text-sm "
+  >
+    View on Google Books
+  </a>
+  </div>
+) : (
+  <a
+    href={bookDescription.volumeInfo.infoLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-400 underline justify-center flex items-center"
+  >
+    View on Google Books
+  </a>
+)} 
+    
+       
+
       </div>
     </div>
   </div>
