@@ -72,11 +72,15 @@ const BookList = () => {
     .catch(error => console.error('Error removing book' , error));
   }
 
+
+  // review fetching 
   function handleMyReview(book) {
      setIsSelected(book);
+     console.log(book);
      setIsModal(!isModal);
   }
 
+  // book description for to read books 
   async function handleKnowMore(title) {
 
      setTitle(title) ;
@@ -100,8 +104,20 @@ const BookList = () => {
      }
    }
 
+   // closing the modal 
   function closeModal(){
     setIsModal(false);
+  }
+
+
+  // date formatting function 
+
+  const formatDate =  (date)=>{
+      return new Date(date).toLocaleDateString("en-GB" , {
+        day : "numeric" , 
+        month : "long" , 
+        year : "numeric" , 
+      })
   }
 
   return (
@@ -126,6 +142,7 @@ const BookList = () => {
                 <h3 className="text-xl font-semibold text-white">{book.title}</h3>
                 <p className="text-gray-300 mb-4">by {book.author}</p>
                 <p className='text-violet-300 mb-4'>My rating  : {book.rating}</p>
+                <p className='text-violet-300 mb-4'>Completed on  : {formatDate(book.end_date)}</p>
                 <button className="text-white hover:bg-white hover:text-violet-600 transition border border-white border-4"
  onClick={() =>handleMyReview(book)}>My learnings</button>
               </div>

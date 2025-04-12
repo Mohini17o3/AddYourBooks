@@ -14,7 +14,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="sticky fixed top-0 z-230 lg:flex lg:items-center lg:justify-center mb-16">
+    <nav className="sticky fixed top-0 z-[230] lg:flex lg:items-center lg:justify-center mb-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-2 backdrop-filter backdrop-blur-lg bg-opacity-15 firefox:bg-opacity-90 border-b border-gray-200">
         <div className="flex items-center justify-between h-16">
           <div className="hidden md:flex space-x-6">
@@ -49,7 +49,7 @@ const Navbar = () => {
       </div>
               {/* Mobile Menu */}
               {isOpen && (
-          <div className="md:hidden fixed z-100 flex flex-col items-center bg-white border-t border-gray-200 py-4 shadow-md w-56 rounded-md ">
+          <div className="md:hidden fixed z-[100] flex flex-col items-center bg-white border-t border-gray-200 py-4 shadow-md w-56 rounded-md ">
             <Link to="/" className="py-2 text-violet-900 text-lg hover:text-violet-600" onClick={() => setIsOpen(false)}>Home</Link>
             <Link to="/topBooks" className="py-2 text-violet-900 text-lg hover:text-violet-600" onClick={() => setIsOpen(false)}>Top Books</Link>
             <Link to="/searchBar" className="py-2 text-violet-900 text-lg hover:text-violet-600" onClick={() => setIsOpen(false)}>Search</Link>

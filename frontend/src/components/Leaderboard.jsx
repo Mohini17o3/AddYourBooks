@@ -29,10 +29,10 @@ function Leaderboard() {
   }, []);
 
   return (
-    <div className=" h-fit mb-14 p-4 rounded-md border-md border-gray-300 text-white w-screen ">
+    <div className="relative z-5 md:pt-20 pt-12 h-fit mb-14 p-4 rounded-md border-md border-gray-300 text-white w-screen ">
     <h1 className="text-3xl font-bold mb-8 text-center font-zeyada">📊 Leaderboard</h1>
 
-    <div className="flex flex-col gap-4 max-w-2xl mx-auto">
+    <div className="flex flex-col gap-4 md:max-w-2xl mx-auto">
       {leaderboard.map((entry) => {
         const isCurrentUser = entry.userName === user?.name;
 
@@ -46,12 +46,13 @@ function Leaderboard() {
                   : "bg-white/10 hover:bg-white/20"
               }`}
           >
-            <span className="w-1/6 text-center text-xl">{entry.rank} </span>
-            <span className="w-3/6 text-left text-lg">
+            <span className="w-1/6 text-center md:text-xl">{entry.rank} </span>
+            <span className="w-3/6 text-left md:text-lg relative z-10
+">
               {isCurrentUser ? "👑 You" : entry.userName}
             </span>
-            <span className="w-2/6 text-right text-md font-mono">
-              Books📚 {entry.readCount}
+            <span className="w-2/6 lg:text-right md:text-md font-mono text-sm">
+              📚 {entry.readCount}
             </span>
           </div>
         );
