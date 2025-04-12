@@ -12,11 +12,12 @@ const AddBook = () => {
     const [status, setStatus] = useState('read');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState('');
     const [review, setReview] = useState('');
     const navigate = useNavigate();
     const url =  import.meta.env.VITE_EXPRESS_BACKEND_URL ;
     const token = localStorage.getItem("token");
+        const[error , setErrorMessage] = useState("");
     
 
     const fetchCoverUrl = async (title, author) => {
@@ -49,11 +50,11 @@ const AddBook = () => {
             status,
             cover_url,
             start_date: startDate ? new Date(startDate).toISOString() : null,
-            end_date: startDate ? new Date(startDate).toISOString() : null,
-            rating,
+            end_date: endDate ? new Date(endDate).toISOString() : null,
+            rating: rating !== '' ? parseFloat(rating) : null,
             review,
            date_added: new Date().toISOString()
-        } , { 
+        } , {   
             headers :
             {Authorization : `Bearer ${token}`}
              }).then(response => {
@@ -62,20 +63,28 @@ const AddBook = () => {
             setStatus('read');
             setStartDate('');
             setEndDate('');
-            setRating(0);
+            setRating('');
             setReview('');
             setLoading(false);
             navigate('/books');
         }).catch(error => {
             console.error('Error adding book:', error);
             setLoading(false); 
+            setErrorMessage(error.message) ;
+
         });
     };
   
     return (
         <div className="bg-brown-300 p-8 rounded-lg shadow-lg m-6 max-w-lg mx-auto border border-white">
+         {error && (
+    <p className="text-red-500 text-sm mt-2">{error}</p>
+)} 
+
      { loading && <div className="flex items-center justify-center h-screen w-screen fixed top-0 left-0 bg-gray-500 bg-opacity-50 z-50"><p className="text-white font-bold text-3xl font-zeyada"> Setting up your bookshelf ...</p></div>}
+     
            <div className="mb-6 flex justify-center">
+           
              <img src="Books.webp" alt="Books" className="w-32 h-32 object-cover rounded-full shadow-md" />
             </div>
              <h1 className="text-4xl font-zeyada text-white text-center mb-6">Add a New Book </h1>
@@ -139,7 +148,7 @@ const AddBook = () => {
                 <input
                     className="w-full p-3 rounded-lg bg-gray-600 text-white"
                     type="number"
-                    value={rating}
+                    value={rating ?? ''}
                     onChange={(e) => setRating(e.target.value)}
                     
                 />
@@ -148,7 +157,7 @@ const AddBook = () => {
                 <label className="block text-white text-xl font-bold mb-2"> Thoughts about the book :</label>
                 <textarea
                     className="w-full p-3 rounded-lg bg-gray-600 text-white"
-                    type="number"
+                    type="text"
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
                     placeholder=" 💭"
