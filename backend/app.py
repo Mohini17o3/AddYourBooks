@@ -18,10 +18,9 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}});
 
 
-books_read = []
-
-
 def add_book(token):
+  books_read = []  # clear before populating again
+  
   try :
       headers = {
             'Authorization': f'Bearer {token}'
@@ -34,7 +33,7 @@ def add_book(token):
 
       if response.status_code == 200:
           data = response.json()
-
+          print("Books from backend:", json.dumps(data['books'], indent=2))
           for entry in data['books']:
              book = {
            'title' : entry['title'],
@@ -47,9 +46,13 @@ def add_book(token):
            'review' : entry.get('review', ''),
            'date_added' : entry.get('date_added' , None),
           }
-          books_read.append(book)
+            
+             books_read.append(book)
+          
       else : 
           print(f"Error fetching books : {response.status_code}")
+
+      return books_read      
 
 
   except Exception as e :
@@ -61,14 +64,9 @@ def add_book(token):
 @app.route('/api/reading-stats' , methods=['GET'])
 def reading_stats():
     token = request.headers.get('Authorization').split("Bearer ")[-1]
-
-    add_book(token)
-
-
-    stats = get_reading_stats(books_read)
-    
+    books = add_book(token)
+    stats = get_reading_stats(books)
     return jsonify(stats)
-
 
 
 
@@ -85,6 +83,9 @@ def get_stored_books(token):
 
     return data 
 
+
+
+#recommendation
 def recommend(book_name):
         
         pt = pickle.load(open('model/pt.pkl' , 'rb'))

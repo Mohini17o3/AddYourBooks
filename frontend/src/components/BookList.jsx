@@ -3,13 +3,19 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'; 
 import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from './userStateContext';
 
 const BookList = () => {
   const [booksRead, setBooksRead] = useState([]);
   const [booksToRead, setBooksToRead] = useState([]);
   const [isModal , setIsModal] = useState(false);
   const [isBookSelected , setIsSelected] = useState(null);
+  const[knowModal , setKnowModal] = useState(false) ;
+  const [loadingDesc , setLoadingDesc] = useState("")  ; 
+  const [bookDescription , setBookDescription] = useState("")  ; 
+  const[title , setTitle] = useState("") ; 
   const [loading , setLoading] = useState(false) ;
+  const {user} = useUser() ;
   const navigate = useNavigate();
 
   const url = import.meta.env.VITE_EXPRESS_BACKEND_URL;
@@ -71,6 +77,29 @@ const BookList = () => {
      setIsModal(!isModal);
   }
 
+  async function handleKnowMore(title) {
+
+     setTitle(title) ;
+     setLoadingDesc(true) ;
+     setKnowModal(!knowModal) ;
+
+     try {
+      const query  = encodeURIComponent(`intitle:${title}`) ;
+     const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=1`;
+     const res = await fetch(url) ;
+     const data = await res.json() ; 
+     console.log(data);
+     const desc =  await data?.items?.[0].volumeInfo?.description || " oopsie ! description not avaible for this book right now "; 
+      setBookDescription(desc) ;
+
+     }catch(e) {
+      console.log(e) ; 
+      setBookDescription("Can't fetch description , please try again later") ;
+     } finally {
+      setLoadingDesc(false) ; 
+     }
+   }
+
   function closeModal(){
     setIsModal(false);
   }
@@ -78,24 +107,27 @@ const BookList = () => {
   return (
     <div className="p-6 min-h-screen">
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-zeyada text-white mb-4">My Reading List</h1>
+        <h1 className="text-4xl font-zeyada text-white mb-4"> Welcome back to your Reading List {user?.name || "Reader"}</h1>
+
+
       </div>
       {loading ? (<div className="relative flex justify-center items-center text-white text-6xl font-bold font-zeyada"> Loading .. </div>): (       
  <>   
       <section className="mb-8">
         <h2 className="text-3xl font-zeyada text-white mb-4">Books Read By Me</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {booksRead.map((book) => (
-            <div key={book.title} className="shadow-lg shadow-gray-200 p-4 rounded-lg shadow-lg flex flex-col ">
+            <div key={book.title} className="shadow-lg shadow-gray-200 p-2 rounded-lg flex flex-col ">
             <div className='text-right' onClick={ () => handleClick(book.title,  book.author , 'read')}> <FontAwesomeIcon className='cursor-pointer bg-white p-2 rounded-md' icon={faTimes} /></div>
             <div className='flex justify-center'>
              <img src={book.cover_url} alt={book.title} className="w-32 h-48 object-cover mb-4 rounded-md" />
              </div>
               <div className="text-center">
-                <h3 className="text-2xl font-semibold text-white">{book.title}</h3>
+                <h3 className="text-xl font-semibold text-white">{book.title}</h3>
                 <p className="text-gray-300 mb-4">by {book.author}</p>
                 <p className='text-violet-300 mb-4'>My rating  : {book.rating}</p>
-                <button className='text-violet-200 cursor-pointer font-bold' onClick={() =>handleMyReview(book)}>My learnings</button>
+                <button className="text-white hover:bg-white hover:text-violet-600 transition border border-white border-4"
+ onClick={() =>handleMyReview(book)}>My learnings</button>
               </div>
             </div>
           ))}
@@ -103,13 +135,14 @@ const BookList = () => {
         </div>
         <Link to="/addBooks">
 
-        <button className='mt-6 text-white'> Add More</button>
+        <button  className="text-white hover:bg-white hover:text-violet-600 transition border border-white border-4 mt-6"
+> Add More</button>
        </Link>
       </section>
 
       <section>
         <h2 className="text-3xl font-zeyada text-white mb-4">Books I Want to Read</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {booksToRead.map((book) => (
             <div key={book.title} className="shadow-lg shadow-gray-200 p-4 rounded-lg shadow-lg flex flex-col ">
             <div className='text-right' onClick={()=> handleClick(book.title, book.author , 'to_read')}> <FontAwesomeIcon className='cursor-pointer bg-white p-2 rounded-md' icon={faTimes} /></div>
@@ -117,20 +150,25 @@ const BookList = () => {
              <img src={book.cover_url} alt={book.title} className="w-32 h-48 object-cover mb-4 rounded-md" />
              </div>
               <div className="text-center">
-                <h3 className="text-2xl font-semibold text-white">{book.title}</h3>
+                <h3 className="text-xl font-semibold text-white">{book.title}</h3>
                 <p className="text-gray-300 mb-4">by {book.author}</p>
+                <button  className="text-white hover:bg-white hover:text-violet-600 transition border border-white border-4"
+ onClick={() => handleKnowMore(book.title)}> Know More</button>
               </div>
             </div>
           ))}
         </div>
         
         <Link to="/addBooks">
-    <button className='mt-6 text-white' > Add More</button>  
+    <button className="text-white hover:bg-white hover:text-violet-600 transition border border-white border-4 mt-6"
+> Add More</button>  
     </Link>   
       </section>
 </>
 
 ) } 
+
+
 
  {isModal && isBookSelected && (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
@@ -147,6 +185,28 @@ const BookList = () => {
           </div>
         </div>
       )}
+
+    {knowModal && title && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-auto">
+    <div className="bg-white p-6 rounded-lg max-w-4xl w-full lg:w-1/2 md:w-1/2">
+      <div className="text-right">
+        <FontAwesomeIcon className="cursor-pointer" icon={faTimes} onClick={() => setKnowModal(false)} />
+      </div>
+      <h2 className="text-2xl font-bold text-center mb-4">{title}</h2>
+      <div className="max-h-96 overflow-auto">
+        {loadingDesc ? (
+          <p className="text-center text-violet-500">Loading description...</p>
+        ) : (
+          <p className="text-center text-violet-800 font-semibold bg-violet-100 p-4 rounded leading-relaxed whitespace-pre-wrap break-words">
+            {bookDescription}
+          </p>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
+
     </div>
   );
 };

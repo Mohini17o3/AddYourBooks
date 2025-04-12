@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 const AnalyticsForBooks = () => {
+
     const [data, setData] = useState({ years: [], months: [], booksRead: [], average_rating: [], average_reading_speed: [] });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -50,14 +51,15 @@ const AnalyticsForBooks = () => {
     // Find the index for the selected year
     const yearIndex = data.years.indexOf(selectedYear);
 
+    
     const booksReadData = {
         labels: data.months[yearIndex] || [],
         datasets: [
             {
                 label: 'Books Read',
                 data: data.booksRead[yearIndex] || [],
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(134, 75, 192, 0.6)',
+                borderColor: 'rgba(134, 75, 192, 1)',
                 borderWidth: 1
             }
         ]
@@ -89,7 +91,7 @@ const AnalyticsForBooks = () => {
                 </select>
             </div>
 
-            <div className="chart-container p-4 mb-6">
+            <div className="chart-container w-1/2 p-4 mb-6">
                 <h3 className="text-xl font-medium mb-2">Books Read per Month</h3>
                 <Bar data={booksReadData} />
             </div>

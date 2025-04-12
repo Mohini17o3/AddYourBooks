@@ -55,6 +55,7 @@ function SignUp(){
 
  return (
     <div className="m-6 p-4 flex flex-col items-center justify-center">
+        <p className="font-bold m-4 text-white"> Already a user ? <Link to="/login"> Login</Link></p>
     <form className="flex flex-col border p-4 m-2 bg-opacity-30 rounded-md md:w-1/3 md:h-1/2 font-bold md:text-xl text-white" onSubmit={handleSubmit}>
         <label>Name : </label>
         <input className="rounded-md h-10 p-4 m-2 text-black"  id="name" type="text" placeholder="Enter your name" value={formData.name} onChange={handleChange} required/>
@@ -65,7 +66,6 @@ function SignUp(){
 
         <input type="submit" className="bg-violet-400 lg:h-12 lg:w-24 lg:ml-40 lg:mt-6 sm:w-20 sm:ml-20 rounded-md hover:violet-500 hover:text-white cursor-pointer transition p-2"/>    
     </form>
-    <p className="font-bold m-4 text-white"> Already a user ? <Link to="/login"> Login</Link></p>
     </div>
  );
 
