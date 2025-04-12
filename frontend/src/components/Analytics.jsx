@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import Leaderboard from './Leaderboard'; 
+import { useUser } from './userStateContext';
+import { useNavigate } from 'react-router-dom';
+
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
@@ -12,7 +16,17 @@ const AnalyticsForBooks = () => {
     const [selectedYear, setSelectedYear] = useState(null);
     const url =  import.meta.env.VITE_BACKEND_URL ;
     const token = localStorage.getItem("token");
+    const {user} = useUser();
+    const navigate  = useNavigate() ;
+
     useEffect(() => {
+        if(!token) {
+            console.error("No token found , redirecting to login page");
+            alert("Please login");
+            navigate('/login');
+            return ; 
+            
+          }
         console.log("Fetching analytics data...");
         axios.get(`${url}/api/reading-stats`  , {headers : {Authorization : `Bearer ${token}`}})
             .then(response => {
@@ -54,9 +68,13 @@ const AnalyticsForBooks = () => {
     if (error) return <p className='text-white font-zeyada'>{error}</p>;
 
     return (
-        <div className="p-8 bg-gray-100 flex items-center justify-center flex-col max-w-lg mx-auto m-4 rounded-lg shadow-md">
-            <h2 className="text-2xl font-semibold mb-4">Reading Analytics</h2>
-            
+
+        <>
+        <h2 className="text-3xl font-zeyada text-white mb-4 text-center"> Have a quick look at your rank , keep going {user?.name || "reader"} ! </h2>
+        
+        <div className="p-8 text-white flex items-center justify-center flex-col mx-auto m-4 rounded-lg shadow-md shadow-gray-200 w-full bg-gradient-to-b from-[#281d38] to-[#260d24] ">
+                <Leaderboard  />
+            <h2 className="text-2xl font-semibold mb-4 font-zeyada">Reading Analytics</h2>         
             <div className="mb-6">
                 <label htmlFor="year" className="block text-black font-medium mb-2">Select Year</label>
                 <select
@@ -84,6 +102,7 @@ const AnalyticsForBooks = () => {
                 <p>{data.average_reading_speed[yearIndex] || 'N/A'}</p>
             </div>
         </div>
+        </>
     );
 };
 
