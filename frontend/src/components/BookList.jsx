@@ -211,6 +211,7 @@ const BookList = () => {
       </div>
       <h2 className="text-2xl font-bold text-center mb-4">{title}</h2>
       <div className="max-h-96 overflow-auto">
+      
         {loadingDesc ? (
           <p className="text-center text-violet-500">Loading description...</p>
         ) : (
@@ -218,7 +219,10 @@ const BookList = () => {
             {bookDescription.volumeInfo.description}
           </p>
         )}
+        
+      </div>
 
+      <div className='flex items-center justify-center '>       
         {bookDescription.saleInfo?.buyLink ? (
  <div className='flex flex-row gap-4 mb-4 items-center justify-center'>          
   <a
@@ -248,10 +252,7 @@ const BookList = () => {
     View on Google Books
   </a>
 )} 
-    
-       
-
-      </div>
+  </div>  
     </div>
   </div>
 )}
