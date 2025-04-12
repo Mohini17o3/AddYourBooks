@@ -8,6 +8,7 @@ function Login(){
     const url = import.meta.env.VITE_EXPRESS_BACKEND_URL ; 
     const navigate = useNavigate() ;
     const {user , setUser} = useUser() ;
+    const[error , setErrorMessage] = useState("");
 
     const[formData , setFormData] = useState({
         email : "" , 
@@ -28,6 +29,7 @@ function Login(){
     const handleSubmit = async (e) => {
         e.preventDefault() ;
         setLoading(true) ;
+        setErrorMessage("");
         try {
             const response = await fetch(`${url}/login` , {
                 method : "POST" , 
@@ -38,7 +40,8 @@ function Login(){
             })  ;
 
             if(!response.ok) {
-                throw new Error("Login failed") ;
+                const err = await response.json() ;
+                throw new Error(err.message || "Login failed , please check your email and password") ;
             }
             
             const data = await response.json() ;
@@ -52,6 +55,9 @@ function Login(){
 
         }catch(e) {
             console.error(e) ;
+            setErrorMessage(e.message || "Something went wrong , refresh and try again with correct credentials") ;
+            setLoading(false);
+
         }
     }
 
@@ -62,6 +68,9 @@ function Login(){
 
  return (
     <div className="m-6 p-4 flex flex-col items-center justify-center">
+   {error && (
+    <p className="text-red-500 text-sm mt-2">{error}</p>
+)} 
         <p className="font-bold m-4 text-white"> Not a user ? <Link to="/SignUp"> Sign Up</Link></p>
     <form className="flex flex-col border p-4 m-2 bg-opacity-30 rounded-md md:w-1/3 md:h-1/2 font-bold md:text-xl text-white" onSubmit={handleSubmit}>
         <label>Email : </label>

@@ -40,7 +40,7 @@ const TopBooks = () => {
       try {
   const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${bookTitle}&key=${key}`)
      if(response.data.items && response.data.items.length > 0 ) {
-      showBookDetail(response.data.items[0].volumeInfo) ;
+      showBookDetail(response.data.items[0]) ;
       console.log(bookDetail);
       setModalOpen(true) ;
     }
@@ -102,21 +102,44 @@ const TopBooks = () => {
   </div>
 
 
-      <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center">{bookDetail.title}</h2>
+      <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center">{bookDetail.volumeInfo.title}</h2>
        <h3 className="text-md sm:text-lg font-semibold mb-2 text-center">
-        By: {bookDetail.authors ? bookDetail.authors.join(", ") : "--"}
+        By: {bookDetail.volumeInfo.authors ? bookDetail.volumeInfo.authors.join(", ") : "--"}
       </h3>
-    {bookDetail.subtitle ? 
-      <p className="font-bold font-zeyada mb-4 lg:text-lg text-center">"{bookDetail.subtitle}"</p> : <p></p>
+    {bookDetail.volumeInfo.subtitle ? 
+      <p className="font-bold font-zeyada mb-4 lg:text-lg text-center">"{bookDetail.volumeInfo.subtitle}"</p> : <p></p>
     }
     <h2 className="font-bold mb-4 lg:text-lg text-center">About:</h2> 
 
     <div className="bg-violet-100 p-4 rounded-md overflow-y-auto max-h-[40vh] text-sm text-violet-800 font-semibold leading-relaxed">
-        {bookDetail.description?.length > 500
-          ? bookDetail.description.slice(0, 600)
-          : bookDetail.description}
+        {bookDetail.volumeInfo.description?.length > 500
+          ? bookDetail.volumeInfo.description.slice(0, 600)
+          : bookDetail.volumeInfo.description}
         .....
       </div>
+
+      <div className='flex items-center justify-center'>       
+        {bookDetail.saleInfo?.buyLink ? (
+  <a
+    href={bookDetail.saleInfo.buyLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-orange-500 text-white px-4 py-2 rounded mt-2 inline-block flex"
+  >
+    Buy on Google Books
+  </a>
+) : (
+  <a
+    href={bookDetail.volumeInfo.infoLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-400 underline"
+  >
+    View on Google Books
+  </a>
+)} 
+
+</div>
   
      </div> 
     </div>

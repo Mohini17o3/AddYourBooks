@@ -46,7 +46,7 @@ const Recommendations = () => {
     try {
    const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${title}&key=${key}`) ;
    if(response.data.items && response.data.items.length > 0) {
-    setModalContent(response.data.items[0].volumeInfo) ;
+    setModalContent(response.data.items[0]) ;
     setModal(true) ;
    }
     }catch(e) {
@@ -100,22 +100,43 @@ const Recommendations = () => {
     </div>
   
   
-        <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center">{modalContent.title}</h2>
+        <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center">{modalContent.volumeInfo.title}</h2>
          <h3 className="text-md sm:text-lg font-semibold mb-2 text-center">
-          By: {modalContent.authors ? modalContent.authors.join(", ") : "--"}
+          By: {modalContent.volumeInfo.authors ? modalContent.volumeInfo.authors.join(", ") : "--"}
         </h3>
-      {modalContent.subtitle ? 
-        <p className="font-bold font-zeyada mb-4 lg:text-lg text-center">"{modalContent.subtitle}"</p> : <p></p>
+      {modalContent.volumeInfo.subtitle ? 
+        <p className="font-bold font-zeyada mb-4 lg:text-lg text-center">"{modalContent.volumeInfo.subtitle}"</p> : <p></p>
       }
       <h2 className="font-bold mb-4 lg:text-lg text-center">About:</h2> 
   
       <div className="bg-violet-100 p-4 rounded-md overflow-y-auto max-h-[40vh] text-sm text-violet-800 font-semibold leading-relaxed">
-          {modalContent.description?.length > 500
-            ? modalContent.description.slice(0, 600)
-            : modalContent.description}
+          {modalContent.volumeInfo.description?.length > 500
+            ? modalContent.volumeInfo.description.slice(0, 600)
+            : modalContent.volumeInfo.description}
           .....
         </div>
-    
+ <div className='flex items-center justify-center'>       
+        {modalContent.saleInfo?.buyLink ? (
+  <a
+    href={modalContent.saleInfo.buyLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-orange-500 text-white px-4 py-2 rounded mt-2 inline-block flex"
+  >
+    Buy on Google Books
+  </a>
+) : (
+  <a
+    href={modalContent.volumeInfo.infoLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-blue-400 underline"
+  >
+    View on Google Books
+  </a>
+)} 
+
+</div>
        </div> 
       </div>
       
