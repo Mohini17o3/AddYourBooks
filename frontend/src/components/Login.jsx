@@ -39,8 +39,8 @@ function Login(){
             })  ;
 
             if(!response.ok) {
-                const err = await response.json() ;
-                throw new Error(err.message || "Login failed , please check your email and password") ;
+                const err = await response.json() ; 
+                throw new Error("Login failed , please check your email and password") ;
             }
             
             const data = await response.json() ;
