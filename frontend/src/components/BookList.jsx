@@ -15,25 +15,27 @@ const BookList = () => {
   const [bookDescription , setBookDescription] = useState(null)  ; 
   const[title , setTitle] = useState("") ; 
   const [loading , setLoading] = useState(false) ;
-  const {user} = useUser() ;
+  const {user , accessToken , loading : isUserLoading} = useUser() ;
   const navigate = useNavigate();
 
   const url = import.meta.env.VITE_EXPRESS_BACKEND_URL;
-  const token = localStorage.getItem("token");
 
 
   useEffect(() => {
-  setLoading(true);
-    if(!token) {
+    if(isUserLoading) {
+      return  ;
+    }
+    if(!accessToken) {
       console.error("No token found , redirecting to login page");
       alert("Please login");
       navigate('/login');
       return ; 
       
     }
+      setLoading(true);
     axios.get(`${url}/api/books/read`,
        {
-      headers:{Authorization : `Bearer ${token}`,      
+      headers:{Authorization : `Bearer ${accessToken}`,      
       },
     })
       .then(response => {
@@ -42,19 +44,19 @@ const BookList = () => {
       .catch(error => console.error('Error fetching books:', error));
       
     axios.get(`${url}/api/books/toread` , {
-      headers : {Authorization : `Bearer ${token}`}
+      headers : {Authorization : `Bearer ${accessToken}`}
     })
       .then(response => {
         setBooksToRead(response.data.books || []);
         setLoading(false);
       })
       .catch(error => console.error('Error fetching books:', error));
-  }, [token]);
+  }, [accessToken , isUserLoading]);
 
   function handleClick(title , author , status) {
     axios.delete(`${url}/api/remove-book` ,
        {
-      headers : {Authorization : `Bearer ${token}`} ,data : {title , author ,status} , 
+      headers : {Authorization : `Bearer ${accessToken}`} ,data : {title , author ,status} , 
     } 
   )
     .then(response => {

@@ -8,7 +8,9 @@ const Navbar = () => {
   const {user , setUser} = useUser();
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
+    sessionStorage.removeItem("accessToken"); 
+    sessionStorage.removeItem("user"); 
+    sessionStorage.clear() ;
     setUser(null); 
   };
 

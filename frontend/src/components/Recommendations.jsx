@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'; 
+import { useUser } from './userStateContext';
+
 
 const Recommendations = () => {
   const [recommendedBooks, setRecommendedBooks] = useState([]);
@@ -10,22 +12,28 @@ const Recommendations = () => {
   const [modal , setModal] = useState(false) ;
   const [modalContent , setModalContent] = useState(null) ;
   const navigate = useNavigate();
-  
   const url = import.meta.env.VITE_BACKEND_URL;
-  const token = localStorage.getItem("token");
+  const {accessToken , loading : isUserLoading} = useUser() ;
   const key = import.meta.env.VITE_books_api ;
 
+
   useEffect(() => {
-    setLoading(true);
-    if (!token) {
+    if(isUserLoading) {
+      return ; 
+    }
+    if (!accessToken) {
       console.error("No token found, redirecting to login page");
       alert("Please login");
       navigate('/login');
       return;
     }
 
+        setLoading(true);
+
+
     axios.get(`${url}/api/recommendations`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
+      
     })
       .then(response => {
         console.log(response.data);
@@ -36,7 +44,7 @@ const Recommendations = () => {
         console.error('Error fetching recommendations:', error);
         setLoading(false);
       });
-  }, [token]);
+  }, [accessToken , isUserLoading]);
 
   function handleAddBook(title, author) {
      navigate("/addBooks" , {state : {title : title , author : author}});

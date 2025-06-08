@@ -23,7 +23,6 @@ function SignUp(){
          }));
     }
 
-
     const handleSubmit = async (e) => {
         e.preventDefault() ;
         setLoading(true);
@@ -51,7 +50,8 @@ function SignUp(){
         }catch(e) {
             console.error(e) ;
             setErrorMessage(e.message) ;
-            setLoading(false);        }
+            setLoading(false); 
+               }
     }
 
     
@@ -78,8 +78,6 @@ function SignUp(){
     </div>
  );
 
-
 }
-
 
 export default SignUp ;

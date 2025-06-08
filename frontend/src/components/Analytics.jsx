@@ -16,20 +16,24 @@ const AnalyticsForBooks = () => {
     const [error, setError] = useState(null);
     const [selectedYear, setSelectedYear] = useState(null);
     const url =  import.meta.env.VITE_BACKEND_URL ;
-    const token = localStorage.getItem("token");
-    const {user} = useUser();
+    const {accessToken} = useUser() ;
+    const {user , loading :isUserLoading} = useUser();
     const navigate  = useNavigate() ;
 
     useEffect(() => {
-        if(!token) {
+     
+        if(isUserLoading) {
+            return ; 
+        }
+
+        if(!accessToken) {
             console.error("No token found , redirecting to login page");
             alert("Please login");
             navigate('/login');
-            return ; 
-            
+            return ;             
           }
         console.log("Fetching analytics data...");
-        axios.get(`${url}/api/reading-stats`  , {headers : {Authorization : `Bearer ${token}`}})
+        axios.get(`${url}/api/reading-stats`  , {headers : {Authorization : `Bearer ${accessToken}`}})
             .then(response => {
                 console.log(response.data);            
                 setData(response.data);

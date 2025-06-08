@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import { useUser } from "./userStateContext";
 
 const AddBook = () => {
     const location = useLocation();
@@ -16,8 +17,9 @@ const AddBook = () => {
     const [review, setReview] = useState('');
     const navigate = useNavigate();
     const url =  import.meta.env.VITE_EXPRESS_BACKEND_URL ;
-    const token = localStorage.getItem("token");
-        const[error , setErrorMessage] = useState("");
+
+    const {accessToken } = useUser() ;
+    const[error , setErrorMessage] = useState("");
     
 
     const fetchCoverUrl = async (title, author) => {
@@ -38,7 +40,7 @@ const AddBook = () => {
 
     const handleSubmit = async () => {
         setLoading(true);
-        if(!token) {
+        if(!accessToken) {
             alert("Please login/register");
             navigate("/login");
 
@@ -56,7 +58,7 @@ const AddBook = () => {
            date_added: new Date().toISOString()
         } , {   
             headers :
-            {Authorization : `Bearer ${token}`}
+            {Authorization : `Bearer ${accessToken}`}
              }).then(response => {
             setTitle('');
             setAuthor('');

@@ -4,7 +4,7 @@ import { useUser } from "./userStateContext";
 function Leaderboard() {
   const { user } = useUser();
   const [leaderboard, setLeaderboard] = useState([]);
-  const token = localStorage.getItem("token");
+  const {accessToken} = useUser() ;
   const url = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
   useEffect(() => {
@@ -12,7 +12,7 @@ function Leaderboard() {
       try {
         const res = await fetch(`${url}/leaderboard` , {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${accessToken}`,
               },
             
         }); // Update endpoint as per your backend

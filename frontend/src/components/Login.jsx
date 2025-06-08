@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "./userStateContext";
@@ -7,7 +6,7 @@ function Login(){
 
     const url = import.meta.env.VITE_EXPRESS_BACKEND_URL ; 
     const navigate = useNavigate() ;
-    const {user , setUser} = useUser() ;
+    const {setUser, setAccessToken} = useUser() ;
     const[error , setErrorMessage] = useState("");
 
     const[formData , setFormData] = useState({
@@ -25,7 +24,6 @@ function Login(){
          }));
     }
 
-
     const handleSubmit = async (e) => {
         e.preventDefault() ;
         setLoading(true) ;
@@ -37,6 +35,7 @@ function Login(){
                     "Content-type": "application/json"
                 } , 
                 body : JSON.stringify(formData), 
+                credentials : "include" , 
             })  ;
 
             if(!response.ok) {
@@ -46,10 +45,12 @@ function Login(){
             
             const data = await response.json() ;
             const { token, user } = data;
+
             console.log("login sucsess");
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
-            setUser(user);
+            sessionStorage.setItem("accessToken" , token) ; 
+            sessionStorage.setItem("user" , JSON.stringify(user))
+;            setUser(user);
+            setAccessToken(token) ;
             setLoading(false);
             navigate('/addBooks') ;
 
@@ -76,7 +77,7 @@ function Login(){
         <label>Email : </label>
         <input className="rounded-md h-10 p-4 m-2 text-black"  id="email" type="email" placeholder="Enter your email" value={formData.email} onChange={handleChange} required/>
         <label>Password</label>
-        <input className="rounded-md h-10 p-4 m-2 text-black"  type="password" id="password" placeholder="Set your password" value={formData.password}  onChange={handleChange} required />
+        <input className="rounded-md h-10 p-4 m-2 text-black"  type="password" id="password" placeholder="Enter your password" value={formData.password}  onChange={handleChange} required />
 
         <input type="submit" className="bg-violet-400 lg:h-12 lg:w-24 lg:ml-40 lg:mt-6 sm:w-20 sm:ml-20 rounded-md hover:violet-500 hover:text-white cursor-pointer transition p-2"/>    
     </form>
